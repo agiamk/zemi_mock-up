@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自転車安全運転支援アプリ UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 画面1: メニュー画面 -->
+    <div class="mobile-screen screen active" id="menuScreen">
+        <header>
+            <span>自転車安全運転支援アプリ</span>
+            <i class="fa-solid fa-circle-user user-icon"></i>
+        </header>
+
+        <main>
+            <div class="grid-menu">
+                <div class="menu-card" onclick="showMapScreen()">
+                    <i class="fa-solid fa-map"></i>
+                    <span>経路案内</span>
+                </div>
+                <div class="menu-card" onclick="showQuizScreen()">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>交通ルール<br>クイズ</span>
+                </div>
+                <div class="menu-card" onclick="showPostScreen()">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>掲示板</span>
+                </div>
+                <div class="menu-card">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>傾向フィード<br>バック</span>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-item active"><i class="fa-solid fa-bars"></i></div>
+            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
+        </footer>
+    </div>
+
+    <!-- 画面2: マップ表示画面 -->
+    <div class="mobile-screen screen" id="mapScreen">
+        <header>
+            <div class="header-with-back">
+                <button class="back-button" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
+                <span>経路マップ</span>
+            </div>
+            <i class="fa-solid fa-circle-user user-icon"></i>
+        </header>
+
+        <main>
+            <div class="map-screen-main">
+                <div class="map-controls">
+                    <button class="map-control-btn active" id="mapViewAlertBtn" onclick="setMapView('alert')">危険アラート</button>
+                    <button class="map-control-btn" id="mapViewNormalBtn" onclick="setMapView('normal')">マップ表示</button>
+                </div>
+
+                <div class="map-large" id="mapAlertView">
+                    <div class="alert-banner">危険アラート</div>
+                    <div class="map-placeholder" style="height: calc(100% - 48px); background-image: url('https://placehold.co/360x420/ffefef/f0703a?text=Alert+Map');"></div>
+                </div>
+
+                <div class="map-large" id="mapNormalView" style="display:none;">
+                    <div class="map-placeholder" style="background-image: url('https://placehold.co/360x520/e6f4ff/2d70b3?text=Map+Display');"></div>
+                    <div class="map-overlay-label">マップ表示</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-item"><i class="fa-solid fa-bars"></i></div>
+            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
+        </footer>
+    </div>
+
+    <!-- 画面3: クイズ選択画面 -->
+    <div class="mobile-screen screen" id="quizScreen">
+        <header>
+            <div class="header-with-back">
+                <button class="back-button" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
+                <span>交通ルールクイズ</span>
+            </div>
+            <i class="fa-solid fa-circle-user user-icon"></i>
+        </header>
+
+        <main>
+            <div class="quiz-list">
+                <div class="quiz-selection-card">
+                    <h3>🚦 信号のルール</h3>
+                    <p>信号機の正しい理解と従い方について学ぶクイズです。</p>
+                    <span class="quiz-difficulty difficulty-easy">初級</span>
+                </div>
+                <div class="quiz-selection-card">
+                    <h3>🛑 一時停止と安全確認</h3>
+                    <p>交差点での安全確認と一時停止のルールについて。</p>
+                    <span class="quiz-difficulty difficulty-medium">中級</span>
+                </div>
+                <div class="quiz-selection-card">
+                    <h3>👥 歩行者優先の原則</h3>
+                    <p>自転車と歩行者の関係性と優先順位について学びます。</p>
+                    <span class="quiz-difficulty difficulty-medium">中級</span>
+                </div>
+                <div class="quiz-selection-card">
+                    <h3>🚗 自動車との共存</h3>
+                    <p>自転車が自動車の死角に入ることの危険性について。</p>
+                    <span class="quiz-difficulty difficulty-hard">上級</span>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-item"><i class="fa-solid fa-bars"></i></div>
+            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
+        </footer>
+    </div>
+
+    <!-- 画面3: 投稿タグ選択画面 -->
+    <div class="mobile-screen screen" id="postScreen">
+        <header>
+            <div class="header-with-back">
+                <button class="back-button" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
+                <span>投稿タグを選択</span>
+            </div>
+            <i class="fa-solid fa-circle-user user-icon"></i>
+        </header>
+
+        <main>
+            <div class="form-group">
+                <label class="form-label">投稿タグ</label>
+                <select class="form-select">
+                    <option>投稿タグを選択</option>
+                    <option>事故・危険</option>
+                    <option>道路情報</option>
+                    <option>施設情報</option>
+                    <option>その他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">タイトル</label>
+                <input type="text" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">サムネイル</label>
+                <div class="upload-area">
+                    <button class="btn-upload"><i class="fa-solid fa-upload"></i> アップロード</button>
+                    <div class="upload-placeholder"><i class="fa-regular fa-image"></i></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">テキスト本文</label>
+                <textarea class="form-textarea"></textarea>
+            </div>
+
+            <button class="btn-submit">送信ボタン</button>
+        </main>
+
+        <footer>
+            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-item"><i class="fa-solid fa-bars"></i></div>
+            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

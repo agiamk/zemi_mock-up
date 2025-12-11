@@ -1,94 +1,118 @@
 :root {
-    --primary-bg: #eef8fd;
-    --header-bg: #dff2fa;
-    --primary-text: #2c3e50;
-    --accent-blue: #2d70b3;
-    --accent-orange: #f45b26;
-    --white: #ffffff;
-    --border-radius: 12px;
-    --shadow: 0 2px 6px rgba(0,0,0,0.05);
-
-    /* ヘッダー／フッターの高さを変数化して重なりを防ぐ */
-    --header-height: 64px;
-    --footer-height: 56px;
+    /* ========== 色の定義 ========== */
+    --primary-bg: #eef8fd;      /* 背景色（淡いブルー） */
+    --header-bg: #dff2fa;       /* ヘッダー背景色 */
+    --primary-text: #2c3e50;    /* テキスト色（濃いグレー） */
+    --accent-blue: #2d70b3;     /* アクセントカラー（青） */
+    --accent-orange: #f45b26;   /* アラーム色（オレンジ） */
+    --white: #ffffff;           /* 白 */
+    
+    /* ========== サイズの定義 ========== */
+    --border-radius: 12px;      /* 角丸の大きさ */
+    --shadow: 0 2px 6px rgba(0,0,0,0.05);  /* 影のスタイル */
+    --header-height: 64px;      /* ヘッダーの高さ */
+    --footer-height: 56px;      /* フッターの高さ */
 }
 
-* { box-sizing: border-box; margin:0; padding:0; font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+/* ========== リセット & 基本設定 ========== */
+/* すべての要素に対して基本スタイルを適用 */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
 
-body { background-color:#f0f0f0; padding:20px; display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
+/* ページ全体の背景とレイアウト */
+body { background-color: #f0f0f0; padding: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
 
-/* 端末フレーム（共通ヘッダー/フッターを内包するラッパー） */
-.device-frame { width:375px; height:750px; background-color:var(--primary-bg); border-radius:30px; box-shadow:0 10px 25px rgba(0,0,0,0.1); overflow:hidden; position:relative; border:8px solid #fff; display:block; }
+/* ========== デバイスフレーム（スマホの枠） ========== */
+/* スマートフォンの画面を表現するコンテナ */
+.device-frame { width: 375px; height: 750px; background-color: var(--primary-bg); border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; position: relative; border: 8px solid #fff; display: block; }
 
-/* 各スクリーンはフレーム内に重ねて表示。アクティブなものだけを表示する */
-.mobile-screen { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; background:transparent; /* ヘッダー/フッターと重ならない余白 */ padding-top:var(--header-height); padding-bottom:var(--footer-height); }
+/* ========== ヘッダー & フッター ========== */
+/* ページの上部に表示されるヘッダー */
+.app-header { background-color: var(--header-bg); display: flex; justify-content: space-between; align-items: center; color: var(--accent-blue); font-weight: bold; font-size: 14px; position: absolute; top: 0; left: 0; right: 0; height: var(--header-height); padding: 0 20px; z-index: 30; }
+.user-icon { font-size: 24px; }
+.header-with-back { display: flex; align-items: center; gap: 10px; }
+.back-button { background: none; border: none; color: var(--accent-blue); font-size: 20px; cursor: pointer; padding: 0; transition: transform 0.2s; }
+.back-button:hover { transform: translateX(-4px); }
 
-/* 共通ヘッダーはフレーム内に収まる想定 */
-.device-frame .app-header { background-color:var(--header-bg); display:flex; justify-content:space-between; align-items:center; color:var(--accent-blue); font-weight:bold; font-size:14px; position:absolute; top:0; left:0; right:0; height:var(--header-height); padding:0 20px; z-index:30; }
-.device-frame .app-header .user-icon { font-size:24px; }
+/* ページの下部に表示されるフッター */
+.app-footer { background-color: var(--white); padding: 12px 0; border-top: 1px solid #eee; display: flex; justify-content: space-around; align-items: center; position: absolute; left: 0; right: 0; bottom: 0; z-index: 30; }
+.nav-item { color: var(--accent-blue); font-size: 20px; cursor: pointer; transition: color 0.2s; }
+.nav-item:hover { color: #1a4d8e; }
 
-/* フッターもフレーム内に配置 */
-.device-frame footer, .device-frame .app-footer { background-color:var(--white); padding:12px 0; border-top:1px solid #eee; display:flex; justify-content:space-around; align-items:center; position:absolute; left:0; right:0; bottom:0; z-index:30; }
-.device-frame footer .nav-item { color:var(--accent-blue); font-size:20px; cursor:pointer; }
-.device-frame footer .nav-item.active { color:var(--accent-blue); }
+/* ========== スクリーン管理 ========== */
+/* 各画面を重ねて配置し、.active クラスで表示/非表示を制御 */
+.mobile-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; background: transparent; padding-top: var(--header-height); padding-bottom: var(--footer-height); }
+.mobile-screen > main { flex: 1; overflow-y: auto; padding: 20px; }
+.screen { display: none; }           /* デフォルトでは非表示 */
+.screen.active { display: flex; }    /* .active がついたら表示 */
 
-/* モバイルスクリーン内の main を明示的に調整（ヘッダー/フッターの領域を除外） */
-.mobile-screen > main { flex:1; overflow-y:auto; padding:20px; }
+/* ========== メニュー画面 ========== */
+/* ホーム画面の4つのメニューボタンを2列グリッドで配置 */
+.grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+.menu-card { background: var(--white); border-radius: var(--border-radius); padding: 30px 10px; text-align: center; box-shadow: var(--shadow); color: var(--primary-text); font-weight: bold; display: flex; flex-direction: column; align-items: center; gap: 15px; cursor: pointer; transition: transform 0.2s; user-select: none; }
+.menu-card:hover { transform: scale(1.05); }
+.menu-card i { font-size: 32px; color: var(--accent-blue); margin-bottom: 5px; }
 
-.grid-menu { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:20px; }
-.menu-card { background:var(--white); border-radius:var(--border-radius); padding:30px 10px; text-align:center; box-shadow:var(--shadow); color:var(--primary-text); font-weight:bold; display:flex; flex-direction:column; align-items:center; gap:15px; cursor:pointer; transition: transform 0.2s; }
-.menu-card i { font-size:32px; color:var(--accent-blue); margin-bottom:5px; }
-.menu-card:hover { transform:scale(1.05); }
+/* ========== フォーム要素 ========== */
+.form-group { margin-bottom: 15px; }
+.form-label { display: block; font-weight: bold; font-size: 14px; margin-bottom: 5px; color: var(--primary-text); }
+.form-input, .form-select, .form-textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; background: var(--white); font-size: 14px; }
+.form-textarea { resize: none; height: 100px; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(45, 112, 179, 0.1); }
 
-.form-group { margin-bottom:15px; }
-.form-label { display:block; font-weight:bold; font-size:14px; margin-bottom:5px; color:var(--primary-text); }
-.form-input, .form-select, .form-textarea { width:100%; padding:12px; border:1px solid #ccc; border-radius:8px; background:var(--white); font-size:14px; }
-.form-textarea { resize:none; height:100px; }
-.upload-area { display:flex; align-items:center; gap:10px; }
-.btn-upload { background-color:var(--accent-blue); color:white; padding:8px 15px; border-radius:20px; font-size:12px; border:none; display:flex; align-items:center; gap:5px; }
-.upload-placeholder { width:50px; height:40px; background:#dcdcdc; border-radius:6px; display:flex; justify-content:center; align-items:center; color:#888; }
-.btn-submit { width:100%; background-color:var(--accent-blue); color:white; padding:15px; border:none; border-radius:25px; font-size:16px; font-weight:bold; margin-top:20px; cursor:pointer; }
+.upload-area { display: flex; align-items: center; gap: 10px; }
+.btn-upload { background-color: var(--accent-blue); color: white; padding: 8px 15px; border-radius: 20px; font-size: 12px; border: none; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: background-color 0.2s; }
+.btn-upload:hover { background-color: #1a4d8e; }
+.upload-placeholder { width: 50px; height: 40px; background: #dcdcdc; border-radius: 6px; display: flex; justify-content: center; align-items: center; color: #888; }
+.btn-submit { width: 100%; background-color: var(--accent-blue); color: white; padding: 15px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; transition: background-color 0.2s; }
+.btn-submit:hover { background-color: #1a4d8e; }
 
-.profile-section { text-align:center; margin-bottom:30px; }
-.profile-icon-large { font-size:80px; color:var(--accent-blue); margin-bottom:10px; }
-.profile-name { font-weight:bold; font-size:18px; }
-.list-menu { display:flex; flex-direction:column; gap:10px; }
-.list-item { background:var(--white); padding:15px 20px; border-radius:10px; display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow); color:var(--primary-text); font-weight:bold; cursor:pointer; }
-.list-item-content { display:flex; align-items:center; gap:15px; }
-.list-item i.icon { color:var(--accent-blue); width:20px; text-align:center; }
-.list-item i.arrow { color:#ccc; }
+/* ========== クイズ選択画面 ========== */
+.quiz-list { display: flex; flex-direction: column; gap: 15px; }
+.quiz-selection-card { background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s; border-left: 4px solid var(--accent-blue); }
+.quiz-selection-card:hover { transform: translateX(5px); }
+.quiz-selection-card h3 { color: var(--primary-text); font-size: 14px; margin-bottom: 8px; }
+.quiz-selection-card p { color: #666; font-size: 12px; margin-bottom: 10px; }
+.quiz-difficulty { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; color: white; }
+.difficulty-easy { background-color: #4caf50; }
+.difficulty-medium { background-color: #ff9800; }
+.difficulty-hard { background-color: #f44336; }
 
-.quiz-card { background:white; padding:15px; border-radius:10px; margin-bottom:15px; box-shadow:var(--shadow); }
-.quiz-title { font-weight:bold; margin-bottom:15px; }
-.quiz-option { border:1px solid #ccc; padding:10px; border-radius:8px; margin-bottom:10px; display:flex; align-items:center; gap:10px; font-size:14px; }
+/* ========== マップ画面 ========== */
+.map-screen-main { display: flex; flex-direction: column; gap: 12px; }
+.map-controls { display: flex; gap: 10px; margin-bottom: 12px; }
+.map-control-btn { background: var(--white); border: 1px solid #ddd; padding: 8px 12px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.map-control-btn:hover { background: #f5f5f5; }
+.map-control-btn.active { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+.map-large { height: 460px; border-radius: 12px; overflow: hidden; position: relative; box-shadow: var(--shadow); background-color: #e9f3fb; }
+.map-placeholder { width: 100%; height: 100%; background-color: #e0e0e0; background-size: cover; position: relative; }
+.alert-banner { background-color: var(--accent-orange); color: white; text-align: center; padding: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.map-overlay-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: rgba(255,255,255,0.9); padding: 6px 12px; border-radius: 8px; font-weight: bold; color: var(--primary-text); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
-.map-placeholder { width:100%; height:100%; background-color:#e0e0e0; background-image: url('https://placehold.co/400x600/e6e6e6/ccc?text=Map+Image'); background-size:cover; position:relative; }
-.alert-banner { background-color:var(--accent-orange); color:white; text-align:center; padding:10px; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:10px; }
+/* ========== 傾向フィードバック画面 ========== */
+.feedback-container { display: flex; flex-direction: column; gap: 20px; }
 
-/* 画面表示制御 */
-.screen { display:none; }
-.screen.active { display:flex; }
-.back-button { background:none; border:none; color:var(--accent-blue); font-size:20px; cursor:pointer; padding:0; }
-.header-with-back { display:flex; align-items:center; gap:10px; }
+.score-card { background: white; border-radius: var(--border-radius); padding: 25px; text-align: center; box-shadow: var(--shadow); }
+.score-label { font-weight: bold; font-size: 14px; color: var(--primary-text); margin-bottom: 15px; }
+.score-circle { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#2d70b3 0deg 306deg, #e0e0e0 306deg); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.score-percentage { font-size: 32px; font-weight: bold; color: var(--accent-blue); text-align: center; }
+.score-rating { font-weight: bold; color: var(--primary-text); font-size: 14px; }
 
-.post-button { background-color:var(--accent-blue); color:white; padding:12px 20px; border:none; border-radius:25px; font-size:14px; font-weight:bold; cursor:pointer; margin-top:15px; width:100%; }
-.post-button:hover { opacity:0.9; }
+.violation-section { background: white; border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow); }
+.violation-section h3 { color: var(--primary-text); font-size: 16px; margin-bottom: 15px; font-weight: bold; }
+.chart-container { display: flex; justify-content: center; align-items: center; margin-bottom: 20px; width: 100%; min-height: 160px; }
+.chart-container svg { display: block; box-sizing: border-box; }
+.pie-chart { width: 160px; height: 160px; flex-shrink: 0; display: block; }
+.pie-chart path { shape-rendering: geometricPrecision; }
+.pie-slice { transition: opacity 0.2s; cursor: pointer; }
+.pie-slice:hover { opacity: 0.8; }
 
-/* クイズ選択画面 */
-.quiz-list { display:flex; flex-direction:column; gap:15px; }
-.quiz-selection-card { background:white; padding:20px; border-radius:10px; box-shadow:var(--shadow); cursor:pointer; transition:transform 0.2s; border-left:4px solid var(--accent-blue); }
-.quiz-selection-card:hover { transform:translateX(5px); }
-.quiz-selection-card h3 { color:var(--primary-text); font-size:14px; margin-bottom:8px; }
-.quiz-selection-card p { color:#666; font-size:12px; margin-bottom:10px; }
-.quiz-difficulty { display:inline-block; padding:4px 10px; border-radius:12px; font-size:11px; font-weight:bold; color:white; }
-.difficulty-easy { background-color:#4caf50; }
-.difficulty-medium { background-color:#ff9800; }
-.difficulty-hard { background-color:#f44336; }
+.chart-legend { display: flex; flex-direction: column; gap: 8px; }
+.legend-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #555; }
+.legend-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
 
-/* マップ画面用スタイル */
-.map-controls { display:flex; gap:10px; margin-bottom:12px; }
-.map-control-btn { background:var(--white); border:1px solid #ddd; padding:8px 12px; border-radius:20px; font-size:13px; cursor:pointer; }
-.map-control-btn.active { background:var(--accent-blue); color:white; border-color:var(--accent-blue); }
-.map-screen-main { display:flex; flex-direction:column; gap:12px; }
-.map-large { height:460px; border-radius:12px; overflow:hidden; position:relative; box-shadow:var(--shadow); background-color:#e9f3fb; }
-.map-overlay-label { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,0.9); padding:6px 12px; border-radius:8px; font-weight:bold; color:var(--primary-text); box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.overall-rating { background: white; border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow); }
+.overall-rating h3 { color: var(--primary-text); font-size: 16px; margin-bottom: 10px; font-weight: bold; }
+.rating-text { color: #666; font-size: 13px; line-height: 1.6; margin-bottom: 15px; }
+.overall-rating h4 { color: var(--primary-text); font-size: 13px; margin-bottom: 10px; font-weight: bold; }
+.score-trend { padding: 10px 0; }
+.line-chart { width: 100%; height: auto; max-width: 100%; }

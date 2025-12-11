@@ -10,32 +10,36 @@
 <body>
 
     <div class="device-frame">
-    <!-- 共通ヘッダー（画面共通化） -->
-    <header class="app-header">
+        <!-- ========== 全ページ共通のヘッダー ========== -->
+        <header class="app-header">
         <div class="header-with-back">
-            <button class="back-button" id="globalBackBtn" style="display:none" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
+            <!-- 戻るボタン（メニュー画面では非表示） -->
+            <button class="back-button" id="globalBackBtn" style="display:none"><i class="fa-solid fa-chevron-left"></i></button>
+            <!-- ページのタイトル（画面切り替え時に動的に変更） -->
             <span id="globalTitle">自転車安全運転支援アプリ</span>
         </div>
+        <!-- ユーザーアイコン -->
         <i class="fa-solid fa-circle-user user-icon"></i>
     </header>
 
-    <!-- 画面1: メニュー画面 -->
+    <!-- ========== 画面1: ホーム（メニュー） ========== -->
     <div class="mobile-screen screen active" id="menuScreen" data-title="自転車安全運転支援アプリ">
         <main>
             <div class="grid-menu">
-                <div class="menu-card" onclick="showMapScreen()">
+                <!-- ボタンをクリックすると data-screen で指定された画面に切り替わる -->
+                <div class="menu-card" data-screen="mapScreen" data-callback="setMapView">
                     <i class="fa-solid fa-map"></i>
                     <span>経路案内</span>
                 </div>
-                <div class="menu-card" onclick="showQuizScreen()">
+                <div class="menu-card" data-screen="quizScreen">
                     <i class="fa-solid fa-circle-question"></i>
                     <span>交通ルール<br>クイズ</span>
                 </div>
-                <div class="menu-card" onclick="showPostScreen()">
+                <div class="menu-card" data-screen="postScreen">
                     <i class="fa-solid fa-comments"></i>
                     <span>掲示板</span>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card" data-screen="feedbackScreen">
                     <i class="fa-solid fa-chart-simple"></i>
                     <span>傾向フィード<br>バック</span>
                 </div>
@@ -48,8 +52,8 @@
         <main>
             <div class="map-screen-main">
                 <div class="map-controls">
-                    <button class="map-control-btn active" id="mapViewAlertBtn" onclick="setMapView('alert')">危険アラート</button>
-                    <button class="map-control-btn" id="mapViewNormalBtn" onclick="setMapView('normal')">マップ表示</button>
+                    <button class="map-control-btn active" id="mapViewAlertBtn" data-view="alert">危険アラート</button>
+                    <button class="map-control-btn" id="mapViewNormalBtn" data-view="normal">マップ表示</button>
                 </div>
 
                 <div class="map-large" id="mapAlertView">
@@ -93,7 +97,74 @@
         </main>
     </div>
 
-    <!-- 画面4: 投稿タグ選択画面 -->
+    <!-- 画面4: 傾向フィードバック画面 -->
+    <div class="mobile-screen screen" id="feedbackScreen" data-title="傾向フィードバック">
+        <main>
+            <div class="feedback-container">
+                <!-- スコアカード -->
+                <div class="score-card">
+                    <div class="score-label">現在の運転スコア: 85点</div>
+                    <div class="score-rating">評価: 良好</div>
+                </div>
+
+                <!-- 違反傾向グラフ -->
+                <div class="violation-section">
+                    <h3>違反傾向グラフ</h3>
+                    <div class="chart-container">
+                        <svg viewBox="0 0 200 200" class="pie-chart" preserveAspectRatio="xMidYMid meet">
+                            <!-- 赤スライス: 一時停止無視 (50%) -->
+                            <path d="M100,100 L100,20 A80 80 0 1 1 100,180 Z" fill="#e74c3c"></path>
+                            <!-- 黄色スライス: 速度超過 (25%) -->
+                            <path d="M100,100 L100,180 A80 80 0 0 1 20,100 Z" fill="#f39c12"></path>
+                            <!-- 緑スライス: 並進 (25%) -->
+                            <path d="M100,100 L20,100 A80 80 0 0 1 100,20 Z" fill="#27ae60"></path>
+                        </svg>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background-color: #e74c3c;"></span>
+                            <span>一時停止無視 (3回) - 要注意</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background-color: #f39c12;"></span>
+                            <span>速度超過 (1回) - 改善</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background-color: #27ae60;"></span>
+                            <span>並進 (1回) - 改善</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 総合評価 -->
+                <div class="overall-rating">
+                    <h3>総合評価</h3>
+                    <p class="rating-text">全体的に安全運転ですが、一時停止に注意しましょう。</p>
+                    <div class="score-trend">
+                        <h4>過去のスコア推移</h4>
+                        <svg viewBox="0 0 300 120" class="line-chart">
+                            <!-- グリッドライン -->
+                            <line x1="30" y1="100" x2="290" y2="100" stroke="#ddd" stroke-width="1"></line>
+                            <!-- ポイント -->
+                            <circle cx="50" cy="70" r="3" fill="#2d70b3"></circle>
+                            <circle cx="110" cy="55" r="3" fill="#2d70b3"></circle>
+                            <circle cx="170" cy="40" r="3" fill="#2d70b3"></circle>
+                            <circle cx="230" cy="25" r="3" fill="#2d70b3"></circle>
+                            <!-- ラインで接続 -->
+                            <polyline points="50,70 110,55 170,40 230,25" fill="none" stroke="#2d70b3" stroke-width="2"></polyline>
+                            <!-- ラベル -->
+                            <text x="50" y="115" font-size="12" text-anchor="middle" fill="#666">70</text>
+                            <text x="110" y="115" font-size="12" text-anchor="middle" fill="#666">75</text>
+                            <text x="170" y="115" font-size="12" text-anchor="middle" fill="#666">80</text>
+                            <text x="230" y="115" font-size="12" text-anchor="middle" fill="#666">85</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 画面5: 投稿タグ選択画面 -->
     <div class="mobile-screen screen" id="postScreen" data-title="投稿タグを選択">
         <main>
             <div class="form-group">

@@ -1,31 +1,25 @@
-function showMenuScreen() {
-    document.getElementById('menuScreen').classList.add('active');
-    document.getElementById('quizScreen') && document.getElementById('quizScreen').classList.remove('active');
-    document.getElementById('postScreen') && document.getElementById('postScreen').classList.remove('active');
-    document.getElementById('mapScreen') && document.getElementById('mapScreen').classList.remove('active');
+// 汎用画面切替関数: 指定IDのスクリーンを active にし、ヘッダーのタイトルと戻るボタンを更新
+function showScreen(screenId) {
+    var screens = document.querySelectorAll('.screen');
+    screens.forEach(function(s) { s.classList.toggle('active', s.id === screenId); });
+
+    var target = document.getElementById(screenId);
+    var titleEl = document.getElementById('globalTitle');
+    var backBtn = document.getElementById('globalBackBtn');
+
+    if (target && titleEl) {
+        titleEl.textContent = target.dataset.title || titleEl.textContent;
+    }
+
+    if (backBtn) {
+        backBtn.style.display = (screenId === 'menuScreen') ? 'none' : '';
+    }
 }
 
-function showQuizScreen() {
-    document.getElementById('menuScreen').classList.remove('active');
-    document.getElementById('quizScreen').classList.add('active');
-    document.getElementById('postScreen') && document.getElementById('postScreen').classList.remove('active');
-    document.getElementById('mapScreen') && document.getElementById('mapScreen').classList.remove('active');
-}
-
-function showPostScreen() {
-    document.getElementById('menuScreen').classList.remove('active');
-    document.getElementById('quizScreen') && document.getElementById('quizScreen').classList.remove('active');
-    document.getElementById('postScreen').classList.add('active');
-    document.getElementById('mapScreen') && document.getElementById('mapScreen').classList.remove('active');
-}
-
-function showMapScreen() {
-    document.getElementById('menuScreen').classList.remove('active');
-    document.getElementById('quizScreen') && document.getElementById('quizScreen').classList.remove('active');
-    document.getElementById('postScreen') && document.getElementById('postScreen').classList.remove('active');
-    document.getElementById('mapScreen') && document.getElementById('mapScreen').classList.add('active');
-    setMapView('alert');
-}
+function showMenuScreen() { showScreen('menuScreen'); }
+function showQuizScreen() { showScreen('quizScreen'); }
+function showPostScreen() { showScreen('postScreen'); }
+function showMapScreen() { showScreen('mapScreen'); setMapView('alert'); }
 
 function setMapView(mode) {
     var alertView = document.getElementById('mapAlertView');
@@ -35,15 +29,10 @@ function setMapView(mode) {
 
     if (!alertView || !normalView) return;
 
-    if (mode === 'alert') {
-        alertView.style.display = '';
-        normalView.style.display = 'none';
-        alertBtn && alertBtn.classList.add('active');
-        normalBtn && normalBtn.classList.remove('active');
-    } else {
-        alertView.style.display = 'none';
-        normalView.style.display = '';
-        alertBtn && alertBtn.classList.remove('active');
-        normalBtn && normalBtn.classList.add('active');
-    }
+    var showAlert = (mode === 'alert');
+    alertView.style.display = showAlert ? '' : 'none';
+    normalView.style.display = showAlert ? 'none' : '';
+
+    alertBtn && alertBtn.classList.toggle('active', showAlert);
+    normalBtn && normalBtn.classList.toggle('active', !showAlert);
 }

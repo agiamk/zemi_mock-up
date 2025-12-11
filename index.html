@@ -9,13 +9,18 @@
 </head>
 <body>
 
-    <!-- 画面1: メニュー画面 -->
-    <div class="mobile-screen screen active" id="menuScreen">
-        <header>
-            <span>自転車安全運転支援アプリ</span>
-            <i class="fa-solid fa-circle-user user-icon"></i>
-        </header>
+    <div class="device-frame">
+    <!-- 共通ヘッダー（画面共通化） -->
+    <header class="app-header">
+        <div class="header-with-back">
+            <button class="back-button" id="globalBackBtn" style="display:none" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
+            <span id="globalTitle">自転車安全運転支援アプリ</span>
+        </div>
+        <i class="fa-solid fa-circle-user user-icon"></i>
+    </header>
 
+    <!-- 画面1: メニュー画面 -->
+    <div class="mobile-screen screen active" id="menuScreen" data-title="自転車安全運転支援アプリ">
         <main>
             <div class="grid-menu">
                 <div class="menu-card" onclick="showMapScreen()">
@@ -36,24 +41,10 @@
                 </div>
             </div>
         </main>
-
-        <footer>
-            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
-            <div class="nav-item active"><i class="fa-solid fa-bars"></i></div>
-            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
-        </footer>
     </div>
 
     <!-- 画面2: マップ表示画面 -->
-    <div class="mobile-screen screen" id="mapScreen">
-        <header>
-            <div class="header-with-back">
-                <button class="back-button" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
-                <span>経路マップ</span>
-            </div>
-            <i class="fa-solid fa-circle-user user-icon"></i>
-        </header>
-
+    <div class="mobile-screen screen" id="mapScreen" data-title="経路マップ">
         <main>
             <div class="map-screen-main">
                 <div class="map-controls">
@@ -72,24 +63,10 @@
                 </div>
             </div>
         </main>
-
-        <footer>
-            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
-            <div class="nav-item"><i class="fa-solid fa-bars"></i></div>
-            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
-        </footer>
     </div>
 
     <!-- 画面3: クイズ選択画面 -->
-    <div class="mobile-screen screen" id="quizScreen">
-        <header>
-            <div class="header-with-back">
-                <button class="back-button" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
-                <span>交通ルールクイズ</span>
-            </div>
-            <i class="fa-solid fa-circle-user user-icon"></i>
-        </header>
-
+    <div class="mobile-screen screen" id="quizScreen" data-title="交通ルールクイズ">
         <main>
             <div class="quiz-list">
                 <div class="quiz-selection-card">
@@ -114,24 +91,10 @@
                 </div>
             </div>
         </main>
-
-        <footer>
-            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
-            <div class="nav-item"><i class="fa-solid fa-bars"></i></div>
-            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
-        </footer>
     </div>
 
-    <!-- 画面3: 投稿タグ選択画面 -->
-    <div class="mobile-screen screen" id="postScreen">
-        <header>
-            <div class="header-with-back">
-                <button class="back-button" onclick="showMenuScreen()"><i class="fa-solid fa-chevron-left"></i></button>
-                <span>投稿タグを選択</span>
-            </div>
-            <i class="fa-solid fa-circle-user user-icon"></i>
-        </header>
-
+    <!-- 画面4: 投稿タグ選択画面 -->
+    <div class="mobile-screen screen" id="postScreen" data-title="投稿タグを選択">
         <main>
             <div class="form-group">
                 <label class="form-label">投稿タグ</label>
@@ -164,12 +127,14 @@
 
             <button class="btn-submit">送信ボタン</button>
         </main>
+    </div>
 
-        <footer>
-            <div class="nav-item"><i class="fa-solid fa-house"></i></div>
-            <div class="nav-item"><i class="fa-solid fa-bars"></i></div>
-            <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
-        </footer>
+    <!-- 共通フッター -->
+    <footer class="app-footer">
+        <div class="nav-item"><i class="fa-solid fa-house"></i></div>
+        <div class="nav-item active"><i class="fa-solid fa-bars"></i></div>
+        <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
+    </footer>
     </div>
 
     <script src="app.js"></script>

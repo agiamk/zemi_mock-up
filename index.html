@@ -1,213 +1,342 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>自転車安全運転支援アプリ UI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./script/app.js" defer></script>
+  </head>
+  <body>
     <div class="device-frame">
-        <!-- ========== 全ページ共通のヘッダー ========== -->
-        <header class="app-header">
+      <!-- ========== 全ページ共通のヘッダー ========== -->
+      <header class="app-header">
         <div class="header-with-back">
-            <!-- 戻るボタン（メニュー画面では非表示） -->
-            <button class="back-button" id="globalBackBtn" style="display:none"><i class="fa-solid fa-chevron-left"></i></button>
-            <!-- ページのタイトル（画面切り替え時に動的に変更） -->
-            <span id="globalTitle">自転車安全運転支援アプリ</span>
+          <!-- 戻るボタン（メニュー画面では非表示） -->
+          <button
+            type="button"
+            class="back-button"
+            id="globalBackBtn"
+            style="display: none"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <!-- ページのタイトル（画面切り替え時に動的に変更） -->
+          <span id="globalTitle">自転車安全運転支援アプリ</span>
         </div>
         <!-- ユーザーアイコン -->
         <i class="fa-solid fa-circle-user user-icon"></i>
-    </header>
+      </header>
 
-    <!-- ========== 画面1: ホーム（メニュー） ========== -->
-    <div class="mobile-screen screen active" id="menuScreen" data-title="自転車安全運転支援アプリ">
+      <!-- ========== 画面1: ホーム（メニュー） ========== -->
+      <div
+        class="mobile-screen screen active"
+        id="menuScreen"
+        data-title="自転車安全運転支援アプリ"
+      >
         <main>
-            <div class="grid-menu">
-                <!-- ボタンをクリックすると data-screen で指定された画面に切り替わる -->
-                <div class="menu-card" data-screen="mapScreen" data-callback="setMapView">
-                    <i class="fa-solid fa-map"></i>
-                    <span>経路案内</span>
-                </div>
-                <div class="menu-card" data-screen="quizScreen">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <span>交通ルール<br>クイズ</span>
-                </div>
-                <div class="menu-card" data-screen="postScreen">
-                    <i class="fa-solid fa-comments"></i>
-                    <span>掲示板</span>
-                </div>
-                <div class="menu-card" data-screen="feedbackScreen">
-                    <i class="fa-solid fa-chart-simple"></i>
-                    <span>傾向フィード<br>バック</span>
-                </div>
-            </div>
+          <div class="grid-menu">
+            <!-- ボタンをクリックすると data-screen で指定された画面に切り替わる -->
+            <button
+              class="menu-card"
+              data-screen="mapScreen"
+              data-callback="setMapView"
+              type="button"
+            >
+              <i class="fa-solid fa-map"></i>
+              <span>経路案内</span>
+            </button>
+            <button class="menu-card" data-screen="quizScreen" type="button">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>交通ルール<br />クイズ</span>
+            </button>
+            <button class="menu-card" type="button" data-screen="postScreen">
+              <i class="fa-solid fa-comments"></i>
+              <span>掲示板</span>
+            </button>
+            <button
+              class="menu-card"
+              type="button"
+              data-screen="feedbackScreen"
+            >
+              <i class="fa-solid fa-chart-simple"></i>
+              <span>傾向フィード<br />バック</span>
+            </button>
+          </div>
         </main>
-    </div>
+      </div>
 
-    <!-- 画面2: マップ表示画面 -->
-    <div class="mobile-screen screen" id="mapScreen" data-title="経路マップ">
+      <!-- 画面2: マップ表示画面 -->
+      <div class="mobile-screen screen" id="mapScreen" data-title="経路マップ">
         <main>
-            <div class="map-screen-main">
-                <div class="map-controls">
-                    <button class="map-control-btn active" id="mapViewAlertBtn" data-view="alert">危険アラート</button>
-                    <button class="map-control-btn" id="mapViewNormalBtn" data-view="normal">マップ表示</button>
-                </div>
-
-                <div class="map-large" id="mapAlertView">
-                    <div class="alert-banner">危険アラート</div>
-                    <div class="map-placeholder" style="height: calc(100% - 48px); background-image: url('https://placehold.co/360x420/ffefef/f0703a?text=Alert+Map');"></div>
-                </div>
-
-                <div class="map-large" id="mapNormalView" style="display:none;">
-                    <div class="map-placeholder" style="background-image: url('https://placehold.co/360x520/e6f4ff/2d70b3?text=Map+Display');"></div>
-                    <div class="map-overlay-label">マップ表示</div>
-                </div>
+          <div class="map-screen-main">
+            <div class="map-controls">
+              <button
+                class="map-control-btn active"
+                id="mapViewAlertBtn"
+                data-view="alert"
+              >
+                危険アラート
+              </button>
+              <button
+                class="map-control-btn"
+                id="mapViewNormalBtn"
+                data-view="normal"
+              >
+                マップ表示
+              </button>
             </div>
-        </main>
-    </div>
 
-    <!-- 画面3: クイズ選択画面 -->
-    <div class="mobile-screen screen" id="quizScreen" data-title="交通ルールクイズ">
+            <div class="map-large" id="mapAlertView">
+              <div class="alert-banner">危険アラート</div>
+              <div
+                class="map-placeholder"
+                style="
+                  height: calc(100% - 48px);
+                  background-image: url('https://placehold.co/360x420/ffefef/f0703a?text=Alert+Map');
+                "
+              ></div>
+            </div>
+
+            <div class="map-large" id="mapNormalView" style="display: none">
+              <div
+                class="map-placeholder"
+                style="
+                  background-image: url('https://placehold.co/360x520/e6f4ff/2d70b3?text=Map+Display');
+                "
+              ></div>
+              <div class="map-overlay-label">マップ表示</div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- 画面3: クイズ選択画面 -->
+      <div
+        class="mobile-screen screen"
+        id="quizScreen"
+        data-title="交通ルールクイズ"
+      >
         <main>
-            <div class="quiz-list">
-                <div class="quiz-selection-card">
-                    <h3>🚦 信号のルール</h3>
-                    <p>信号機の正しい理解と従い方について学ぶクイズです。</p>
-                    <span class="quiz-difficulty difficulty-easy">初級</span>
-                </div>
-                <div class="quiz-selection-card">
-                    <h3>🛑 一時停止と安全確認</h3>
-                    <p>交差点での安全確認と一時停止のルールについて。</p>
-                    <span class="quiz-difficulty difficulty-medium">中級</span>
-                </div>
-                <div class="quiz-selection-card">
-                    <h3>👥 歩行者優先の原則</h3>
-                    <p>自転車と歩行者の関係性と優先順位について学びます。</p>
-                    <span class="quiz-difficulty difficulty-medium">中級</span>
-                </div>
-                <div class="quiz-selection-card">
-                    <h3>🚗 自動車との共存</h3>
-                    <p>自転車が自動車の死角に入ることの危険性について。</p>
-                    <span class="quiz-difficulty difficulty-hard">上級</span>
-                </div>
-            </div>
+          <div class="quiz-list">
+            <button type="button" class="quiz-selection-card">
+              <h3>🚦 信号のルール</h3>
+              <p>信号機の正しい理解と従い方について学ぶクイズです。</p>
+              <span class="quiz-difficulty difficulty-easy">初級</span>
+            </button>
+            <button type="button" class="quiz-selection-card">
+              <h3>🛑 一時停止と安全確認</h3>
+              <p>交差点での安全確認と一時停止のルールについて。</p>
+              <span class="quiz-difficulty difficulty-medium">中級</span>
+            </button>
+            <button type="button" class="quiz-selection-card">
+              <h3>👥 歩行者優先の原則</h3>
+              <p>自転車と歩行者の関係性と優先順位について学びます。</p>
+              <span class="quiz-difficulty difficulty-medium">中級</span>
+            </button>
+            <button type="button" class="quiz-selection-card">
+              <h3>🚗 自動車との共存</h3>
+              <p>自転車が自動車の死角に入ることの危険性について。</p>
+              <span class="quiz-difficulty difficulty-hard">上級</span>
+            </button>
+          </div>
         </main>
-    </div>
+      </div>
 
-    <!-- 画面4: 傾向フィードバック画面 -->
-    <div class="mobile-screen screen" id="feedbackScreen" data-title="傾向フィードバック">
+      <!-- 画面4: 傾向フィードバック画面 -->
+      <div
+        class="mobile-screen screen"
+        id="feedbackScreen"
+        data-title="傾向フィードバック"
+      >
         <main>
-            <div class="feedback-container">
-                <!-- スコアカード -->
-                <div class="score-card">
-                    <div class="score-label">現在の運転スコア: 85点</div>
-                    <div class="score-rating">評価: 良好</div>
-                </div>
-
-                <!-- 違反傾向グラフ -->
-                <div class="violation-section">
-                    <h3>違反傾向グラフ</h3>
-                    <div class="chart-container">
-                        <svg viewBox="0 0 200 200" class="pie-chart" preserveAspectRatio="xMidYMid meet">
-                            <!-- 赤スライス: 一時停止無視 (50%) -->
-                            <path d="M100,100 L100,20 A80 80 0 1 1 100,180 Z" fill="#e74c3c"></path>
-                            <!-- 黄色スライス: 速度超過 (25%) -->
-                            <path d="M100,100 L100,180 A80 80 0 0 1 20,100 Z" fill="#f39c12"></path>
-                            <!-- 緑スライス: 並進 (25%) -->
-                            <path d="M100,100 L20,100 A80 80 0 0 1 100,20 Z" fill="#27ae60"></path>
-                        </svg>
-                    </div>
-                    <div class="chart-legend">
-                        <div class="legend-item">
-                            <span class="legend-dot" style="background-color: #e74c3c;"></span>
-                            <span>一時停止無視 (3回) - 要注意</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-dot" style="background-color: #f39c12;"></span>
-                            <span>速度超過 (1回) - 改善</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-dot" style="background-color: #27ae60;"></span>
-                            <span>並進 (1回) - 改善</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 総合評価 -->
-                <div class="overall-rating">
-                    <h3>総合評価</h3>
-                    <p class="rating-text">全体的に安全運転ですが、一時停止に注意しましょう。</p>
-                    <div class="score-trend">
-                        <h4>過去のスコア推移</h4>
-                        <svg viewBox="0 0 300 120" class="line-chart">
-                            <!-- グリッドライン -->
-                            <line x1="30" y1="100" x2="290" y2="100" stroke="#ddd" stroke-width="1"></line>
-                            <!-- ポイント -->
-                            <circle cx="50" cy="70" r="3" fill="#2d70b3"></circle>
-                            <circle cx="110" cy="55" r="3" fill="#2d70b3"></circle>
-                            <circle cx="170" cy="40" r="3" fill="#2d70b3"></circle>
-                            <circle cx="230" cy="25" r="3" fill="#2d70b3"></circle>
-                            <!-- ラインで接続 -->
-                            <polyline points="50,70 110,55 170,40 230,25" fill="none" stroke="#2d70b3" stroke-width="2"></polyline>
-                            <!-- ラベル -->
-                            <text x="50" y="115" font-size="12" text-anchor="middle" fill="#666">70</text>
-                            <text x="110" y="115" font-size="12" text-anchor="middle" fill="#666">75</text>
-                            <text x="170" y="115" font-size="12" text-anchor="middle" fill="#666">80</text>
-                            <text x="230" y="115" font-size="12" text-anchor="middle" fill="#666">85</text>
-                        </svg>
-                    </div>
-                </div>
+          <div class="feedback-container">
+            <!-- スコアカード -->
+            <div class="score-card">
+              <div class="score-label">現在の運転スコア: 85点</div>
+              <div class="score-rating">評価: 良好</div>
             </div>
-        </main>
-    </div>
 
-    <!-- 画面5: 投稿タグ選択画面 -->
-    <div class="mobile-screen screen" id="postScreen" data-title="投稿タグを選択">
+            <!-- 違反傾向グラフ -->
+            <div class="violation-section">
+              <h3>違反傾向グラフ</h3>
+              <div class="chart-container">
+                <svg
+                  viewBox="0 0 200 200"
+                  class="pie-chart"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <!-- 赤スライス: 一時停止無視 (50%) -->
+                  <path
+                    d="M100,100 L100,20 A80 80 0 1 1 100,180 Z"
+                    fill="#e74c3c"
+                  ></path>
+                  <!-- 黄色スライス: 速度超過 (25%) -->
+                  <path
+                    d="M100,100 L100,180 A80 80 0 0 1 20,100 Z"
+                    fill="#f39c12"
+                  ></path>
+                  <!-- 緑スライス: 並進 (25%) -->
+                  <path
+                    d="M100,100 L20,100 A80 80 0 0 1 100,20 Z"
+                    fill="#27ae60"
+                  ></path>
+                </svg>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span
+                    class="legend-dot"
+                    style="background-color: #e74c3c"
+                  ></span>
+                  <span>一時停止無視 (3回) - 要注意</span>
+                </div>
+                <div class="legend-item">
+                  <span
+                    class="legend-dot"
+                    style="background-color: #f39c12"
+                  ></span>
+                  <span>速度超過 (1回) - 改善</span>
+                </div>
+                <div class="legend-item">
+                  <span
+                    class="legend-dot"
+                    style="background-color: #27ae60"
+                  ></span>
+                  <span>並進 (1回) - 改善</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 総合評価 -->
+            <div class="overall-rating">
+              <h3>総合評価</h3>
+              <p class="rating-text">
+                全体的に安全運転ですが、一時停止に注意しましょう。
+              </p>
+              <div class="score-trend">
+                <h4>過去のスコア推移</h4>
+                <svg viewBox="0 0 300 120" class="line-chart">
+                  <!-- グリッドライン -->
+                  <line
+                    x1="30"
+                    y1="100"
+                    x2="290"
+                    y2="100"
+                    stroke="#ddd"
+                    stroke-width="1"
+                  ></line>
+                  <!-- ポイント -->
+                  <circle cx="50" cy="70" r="3" fill="#2d70b3"></circle>
+                  <circle cx="110" cy="55" r="3" fill="#2d70b3"></circle>
+                  <circle cx="170" cy="40" r="3" fill="#2d70b3"></circle>
+                  <circle cx="230" cy="25" r="3" fill="#2d70b3"></circle>
+                  <!-- ラインで接続 -->
+                  <polyline
+                    points="50,70 110,55 170,40 230,25"
+                    fill="none"
+                    stroke="#2d70b3"
+                    stroke-width="2"
+                  ></polyline>
+                  <!-- ラベル -->
+                  <text
+                    x="50"
+                    y="115"
+                    font-size="12"
+                    text-anchor="middle"
+                    fill="#666"
+                  >
+                    70
+                  </text>
+                  <text
+                    x="110"
+                    y="115"
+                    font-size="12"
+                    text-anchor="middle"
+                    fill="#666"
+                  >
+                    75
+                  </text>
+                  <text
+                    x="170"
+                    y="115"
+                    font-size="12"
+                    text-anchor="middle"
+                    fill="#666"
+                  >
+                    80
+                  </text>
+                  <text
+                    x="230"
+                    y="115"
+                    font-size="12"
+                    text-anchor="middle"
+                    fill="#666"
+                  >
+                    85
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- 画面5: 投稿タグ選択画面 -->
+      <div
+        class="mobile-screen screen"
+        id="postScreen"
+        data-title="投稿タグを選択"
+      >
         <main>
-            <div class="form-group">
-                <label class="form-label">投稿タグ</label>
-                <select class="form-select">
-                    <option>投稿タグを選択</option>
-                    <option>事故・危険</option>
-                    <option>道路情報</option>
-                    <option>施設情報</option>
-                    <option>その他</option>
-                </select>
-            </div>
+          <div class="form-group">
+            <label class="form-label" for="select">投稿タグ</label>
+            <select class="form-select" id="select">
+              <option>投稿タグを選択</option>
+              <option>事故・危険</option>
+              <option>道路情報</option>
+              <option>施設情報</option>
+              <option>その他</option>
+            </select>
+          </div>
 
-            <div class="form-group">
-                <label class="form-label">タイトル</label>
-                <input type="text" class="form-input">
-            </div>
+          <div class="form-group">
+            <label class="form-label" for="text-title">タイトル</label>
+            <input type="text" class="form-input" id="text-title" />
+          </div>
 
-            <div class="form-group">
-                <label class="form-label">サムネイル</label>
-                <div class="upload-area">
-                    <button class="btn-upload"><i class="fa-solid fa-upload"></i> アップロード</button>
-                    <div class="upload-placeholder"><i class="fa-regular fa-image"></i></div>
-                </div>
+          <div class="form-group">
+            <label class="form-label" for="file-thumbnail">サムネイル</label>
+            <div class="upload-area">
+              <div class="btn-upload">
+                <input type="file" accept="image/*" id="file-thumbnail" />
+                <i class="fa-solid fa-upload"></i> アップロード
+              </div>
+              <div class="upload-placeholder">
+                <i class="fa-regular fa-image"></i>
+              </div>
             </div>
+          </div>
 
-            <div class="form-group">
-                <label class="form-label">テキスト本文</label>
-                <textarea class="form-textarea"></textarea>
-            </div>
+          <div class="form-group">
+            <label class="form-label" for="textarea">テキスト本文</label>
+            <textarea class="form-textarea" id="textarea"></textarea>
+          </div>
 
-            <button class="btn-submit">送信ボタン</button>
+          <button class="btn-submit" type="submit">送信ボタン</button>
         </main>
-    </div>
+      </div>
 
-    <!-- 共通フッター -->
-    <footer class="app-footer">
+      <!-- 共通フッター -->
+      <footer class="app-footer">
         <div class="nav-item"><i class="fa-solid fa-house"></i></div>
         <div class="nav-item active"><i class="fa-solid fa-bars"></i></div>
         <div class="nav-item"><i class="fa-regular fa-circle-user"></i></div>
-    </footer>
+      </footer>
     </div>
-
-    <script src="app.js"></script>
-</body>
+  </body>
 </html>

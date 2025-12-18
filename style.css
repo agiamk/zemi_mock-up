@@ -437,25 +437,34 @@ input[type="file"] {
   width: 100%;
   min-height: 160px;
 }
-.chart-container svg {
-  display: block;
-  box-sizing: border-box;
-}
 .pie-chart {
   width: 160px;
   height: 160px;
   flex-shrink: 0;
   display: block;
+  border-radius: 50%;
+  background: conic-gradient(#e74c3c 0% 60%, #f39c12 60% 80%, #27ae60 80% 100%);
+  position: relative;
 }
-.pie-chart path {
-  shape-rendering: geometricPrecision;
+.chart-text {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
 }
-.pie-slice {
-  transition: opacity 0.2s;
-  cursor: pointer;
+.text-red {
+  top: 50%;
+  left:75%;
+  transform: translateX(-50%);
 }
-.pie-slice:focus {
-  opacity: 0.8;
+.text-yellow {
+  top: 55%;
+  left: 15%;
+}
+.text-green {
+  top: 20%;
+  left: 25%;
 }
 
 .chart-legend {
@@ -475,6 +484,7 @@ input[type="file"] {
   height: 12px;
   border-radius: 2px;
   flex-shrink: 0;
+  background-color: attr(data-color);
 }
 
 .overall-rating {

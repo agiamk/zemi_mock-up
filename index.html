@@ -165,48 +165,23 @@
             <div class="violation-section">
               <h3>違反傾向グラフ</h3>
               <div class="chart-container">
-                <svg
-                  viewBox="0 0 200 200"
-                  class="pie-chart"
-                  preserveAspectRatio="xMidYMid meet"
-                >
-                  <!-- 赤スライス: 一時停止無視 (50%) -->
-                  <path
-                    d="M100,100 L100,20 A80 80 0 1 1 100,180 Z"
-                    fill="#e74c3c"
-                  ></path>
-                  <!-- 黄色スライス: 速度超過 (25%) -->
-                  <path
-                    d="M100,100 L100,180 A80 80 0 0 1 20,100 Z"
-                    fill="#f39c12"
-                  ></path>
-                  <!-- 緑スライス: 並進 (25%) -->
-                  <path
-                    d="M100,100 L20,100 A80 80 0 0 1 100,20 Z"
-                    fill="#27ae60"
-                  ></path>
-                </svg>
+                <div class="pie-chart">
+                  <div class="chart-text text-red">60%</div>
+                  <div class="chart-text text-yellow">20%</div>
+                  <div class="chart-text text-green">20%</div>
+                </div>
               </div>
               <div class="chart-legend">
-                <div class="legend-item">
-                  <span
-                    class="legend-dot"
-                    style="background-color: #e74c3c"
-                  ></span>
+                <div class="legend-item" data-color="#e74c3c">
+                  <span class="legend-dot"></span>
                   <span>一時停止無視 (3回) - 要注意</span>
                 </div>
-                <div class="legend-item">
-                  <span
-                    class="legend-dot"
-                    style="background-color: #f39c12"
-                  ></span>
+                <div class="legend-item" data-color="#f39c12">
+                  <span class="legend-dot"></span>
                   <span>速度超過 (1回) - 改善</span>
                 </div>
-                <div class="legend-item">
-                  <span
-                    class="legend-dot"
-                    style="background-color: #27ae60"
-                  ></span>
+                <div class="legend-item" data-color="#27ae60">
+                  <span class="legend-dot"></span>
                   <span>並進 (1回) - 改善</span>
                 </div>
               </div>
@@ -220,7 +195,8 @@
               </p>
               <div class="score-trend">
                 <h4>過去のスコア推移</h4>
-                <svg viewBox="0 0 300 120" class="line-chart">
+                <svg viewBox="0 0 300 120" class="line-chart" role="img" aria-labelledby="score-trend-title">
+                  <title id="score-trend-title">過去のスコア推移グラフ</title>
                   <!-- グリッドライン -->
                   <line
                     x1="30"
@@ -229,19 +205,19 @@
                     y2="100"
                     stroke="#ddd"
                     stroke-width="1"
-                  ></line>
+                  />
                   <!-- ポイント -->
-                  <circle cx="50" cy="70" r="3" fill="#2d70b3"></circle>
-                  <circle cx="110" cy="55" r="3" fill="#2d70b3"></circle>
-                  <circle cx="170" cy="40" r="3" fill="#2d70b3"></circle>
-                  <circle cx="230" cy="25" r="3" fill="#2d70b3"></circle>
+                  <circle cx="50" cy="70" r="3" fill="#2d70b3" />
+                  <circle cx="110" cy="55" r="3" fill="#2d70b3" />
+                  <circle cx="170" cy="40" r="3" fill="#2d70b3" />
+                  <circle cx="230" cy="25" r="3" fill="#2d70b3" />
                   <!-- ラインで接続 -->
                   <polyline
                     points="50,70 110,55 170,40 230,25"
                     fill="none"
                     stroke="#2d70b3"
                     stroke-width="2"
-                  ></polyline>
+                  />
                   <!-- ラベル -->
                   <text
                     x="50"

@@ -123,19 +123,19 @@
       >
         <main>
           <div class="quiz-list">
-            <button type="button" class="quiz-selection-card">
+            <button type="button" class="quiz-selection-card" data-screen="quizQuestionScreen" data-quiz-type="signal">
               <h3>🚦 信号のルール</h3>
-              <p>信号機の正しい理解と従い方について学ぶクイズです。</p>
+              <p>信号機の正しい理解と従い方を学習する。</p>
               <span class="quiz-difficulty difficulty-easy">初級</span>
             </button>
             <button type="button" class="quiz-selection-card">
               <h3>🛑 一時停止と安全確認</h3>
-              <p>交差点での安全確認と一時停止のルールについて。</p>
+              <p>交差点での安全確認と一時停止について。</p>
               <span class="quiz-difficulty difficulty-medium">中級</span>
             </button>
             <button type="button" class="quiz-selection-card">
               <h3>👥 歩行者優先の原則</h3>
-              <p>自転車と歩行者の関係性と優先順位について学びます。</p>
+              <p>自転車と歩行者の関係性と優先順位について。</p>
               <span class="quiz-difficulty difficulty-medium">中級</span>
             </button>
             <button type="button" class="quiz-selection-card">
@@ -143,6 +143,43 @@
               <p>自転車が自動車の死角に入ることの危険性について。</p>
               <span class="quiz-difficulty difficulty-hard">上級</span>
             </button>
+          </div>
+        </main>
+      </div>
+
+      <!-- 画面3.5: クイズ出題画面 -->
+      <div
+        class="mobile-screen screen"
+        id="quizQuestionScreen"
+        data-title="信号のルール"
+      >
+        <main>
+          <div class="quiz-question-container">
+            <div class="quiz-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+              </div>
+              <span class="progress-text">問題0/0</span>
+            </div>
+
+            <div class="question-area">
+              <div class="question-text">
+                <p>問題が読み込まれています...</p>
+              </div>
+              <div class="question-image">
+                <img src="https://placehold.co/300x150/e6f4ff/2d70b3?text=Traffic+Light" alt="問題画像" />
+              </div>
+              <div class="answer-options">
+                <!-- 選択肢は動的に挿入されます -->
+              </div>
+              <div class="explanation" aria-live="polite" style="display:none">
+                <h4 class="explanation-title">解説</h4>
+                <p class="explanation-text"></p>
+              </div>
+              <div class="quiz-controls">
+                <button id="quizNextBtn" class="btn-submit" type="button" disabled>次へ</button>
+              </div>
+            </div>
           </div>
         </main>
       </div>

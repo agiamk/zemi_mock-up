@@ -10,6 +10,7 @@
     />
     <link rel="stylesheet" href="style.css" />
     <script src="./script/app.js" defer></script>
+    <script src="./script/viewPost/index.js" defer></script>
   </head>
   <body>
     <div class="device-frame">
@@ -54,7 +55,7 @@
               <i class="fa-solid fa-circle-question"></i>
               <span>交通ルール<br />クイズ</span>
             </button>
-            <button class="menu-card" type="button" data-screen="postScreen">
+            <button class="menu-card" type="button" data-screen="viewScreen">
               <i class="fa-solid fa-comments"></i>
               <span>掲示板</span>
             </button>
@@ -299,7 +300,7 @@
         </main>
       </div>
 
-      <!-- 画面5: 投稿タグ選択画面 -->
+      <!-- 画面5-1: 掲示板投稿画面 -->
       <div
         class="mobile-screen screen"
         id="postScreen"
@@ -341,6 +342,54 @@
           </div>
 
           <button class="btn-submit" type="submit">送信ボタン</button>
+        </main>
+      </div>
+
+      <!-- 画面5-2: 掲示板閲覧画面 -->
+      <div
+        class="mobile-screen screen"
+        id="viewScreen"
+        data-title="投稿一覧"
+      >
+        <main>
+          <div style="padding-bottom:12px">
+            <button class="menu-card" data-screen="postScreen" type="button" style="padding:10px 12px; display:inline-block; width:auto">投稿はこちら </button>
+          </div>
+          <div class="media" id="body">
+            <img class="media__img" src="./img/index_img_01.png" alt="" width="1183" height="730">
+            <details class="postItem">
+              <summary class="postItem__pin --01">
+                掲示板投稿の位置情報
+              </summary>
+              <div class="postItem__content">
+                <span class="post-tag">事故・危険</span>
+                <img class="post-thumbnail" src="https://placehold.co/360x520/" alt="サムネイル">
+                <h3>投稿01</h3>
+                <p>交差点付近で事故が起きました</p>
+              </div>
+            </details>
+            <details class="postItem">
+              <summary class="postItem__pin --02">
+                掲示板投稿の位置情報
+              </summary>
+              <div class="postItem__content">
+                <span class="post-tag">道路情報</span>
+                <h3>投稿02</h3>
+                <p>駅前の道路が混雑しています。注意が必要です。</p>
+              </div>
+            </details>
+            <details class="postItem">
+              <summary class="postItem__pin --03">
+                掲示板投稿の位置情報
+              </summary>
+              <div class="postItem__content">
+                <span class="post-tag">その他</span>
+                <h3>投稿03</h3>
+                <p>公園付近で不審者の目撃情報があります。</p>
+              </div>
+            </details>
+            <small>出典：地理院地図Vector</small>
+          </div>
         </main>
       </div>
 

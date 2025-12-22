@@ -37,6 +37,18 @@ button {
   border: none;
 }
 
+#body.mask::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
 /* ========== デバイスフレーム（スマホの枠） ========== */
 /* スマートフォンの画面を表現するコンテナ */
 .device-frame {
@@ -691,4 +703,169 @@ input[type="file"] {
   font-size: 13px;
   color: #444;
   line-height: 1.5;
+}
+
+/* 掲示板閲覧画面追加 */
+
+details {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+summary {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: none;
+  background: none;
+}
+
+.media {
+  position: relative;
+}
+
+.media__img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.postItem__pin {
+  --location-top: 30%;
+  --location-left: 50%;
+
+  /* 読み上げだけのラベル付与 */
+  width: 0;
+  height: 0;
+  overflow: hidden;
+
+  &::after {
+    display: block;
+    content: "";
+    width: 15px;
+    height: 16px;
+    background-color: red;
+    position: absolute;
+    top: calc(var(--location-top));
+    left: calc(var(--location-left));
+    z-index: 10;
+    border-radius: 50%;
+  }
+
+  &::before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: calc(var(--location-top) + 12px);
+    left: calc(var(--location-left) + 1px);
+    border-top: 10px solid gray;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-bottom: 0;
+  }
+}
+
+.postItem__pin.--01 {
+  --location-top: 30%;
+  --location-left: 50%;
+
+  &::after {
+    top: calc(var(--location-top));
+    left: calc(var(--location-left));
+  }
+
+  &::before {
+    top: calc(var(--location-top) + 12px);
+    left: calc(var(--location-left) + 1px);
+  }
+}
+
+.postItem__pin.--02 {
+  --location-top: 20%;
+  --location-left: 70%;
+
+  &::after {
+    top: calc(var(--location-top));
+    left: calc(var(--location-left));
+  }
+
+  &::before {
+    top: calc(var(--location-top) + 12px);
+    left: calc(var(--location-left) + 1px);
+  }
+}
+
+.postItem__pin.--03 {
+  --location-top: 40%;
+  --location-left: 70%;
+
+  &::after {
+    top: calc(var(--location-top));
+    left: calc(var(--location-left));
+  }
+
+  &::before {
+    top: calc(var(--location-top) + 12px);
+    left: calc(var(--location-left) + 1px);
+  }
+}
+
+.postItem__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 20;
+}
+
+details .postItem__content {
+  display: none;
+}
+details[open] .postItem__content {
+  display: block;
+  width: 260px;
+  max-width: calc(100% - 40px);
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  max-height: 250px;
+}
+
+.post-tag {
+  display: inline-block;
+  background: #eef6ff;
+  color: var(--accent-blue);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.post-thumbnail {
+  display: block;
+  width: 100%;
+  height: 100px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
+
+details[open] .postItem__content h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+details[open] .postItem__content p {
+  font-size: 13px;
+  color: #444;
 }

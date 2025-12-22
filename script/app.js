@@ -1,6 +1,7 @@
 // 画面切り替え: 指定画面を表示、タイトル・戻るボタンを更新
 function showScreen(screenId) {
   const allScreens = document.querySelectorAll(".screen");
+  console.log(allScreens);
   allScreens.forEach((screen) => {
     screen.classList.toggle("active", screen.id === screenId);
   });
